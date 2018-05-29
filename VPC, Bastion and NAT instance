@@ -1,0 +1,83 @@
+VPC, Bastion and NAT instance.
+
+The goal is to configure a VPC with one private and one public subnet. 
+In the private subnet we have one EC2 which will be used to ping a website.
+In the public subnet we will have two EC2 instances, one as a NAT instance and
+the other one as a BASTION. All this inside one availability zone
+I propose a step by step method to achieve the objective.
+
+1. Create one Key Pair.
+
+- Go to the AWS console.
+- Click on EC2.
+- Search for Key Pair on resources, and create one.
+- This will be used afterwards.
+
+2. Create a VPC with NAT Instance.
+
+- Go to VPC now.
+- Start VPC Wizard.
+- Choose the option "VPC with Public and Private Subnets"
+- On "VPC name", give it a name.
+- You have the subnets below. Configure both to the same availability zone.
+- You can change their names too.
+- About IPv4, let them as they are.
+- Let's "use a NAT instance instead".
+	- Instance type: t2.micro
+	- Key Pair name: use your Key pair.
+
+3. Configuring NAT Instance security group. Door to the internet!
+
+- Go to Instance inside EC2.
+- We have here one instance, inside "Name", just name it "NAT Instance".
+- Look at the column "Security Group" and click on "default".
+- Now select it and change the name to "NAT security" and go to inbound tab.
+- Click on "edit".
+- Go to inbound Rules and click edit.
+	- For type, search for "all traffic".
+- Click Save
+
+4. Create Bastion Host in Public Subnet.
+- Services -> EC2 -> Launch Instance.
+- Select windows server 2016 base (free tier).
+- Choose an instance type: t2.micro free tier.
+- Configure instance details
+	- Network: your VPC.
+	- Subnet: the public one.
+	- Auto-assign public ip: enable.
+- Add storage: next
+- Add Tags:
+	- key: name
+	- Value: Bastion Host
+- Configure Security Group:
+	- Create a new one.
+	- Change the name and description.
+	- Type: All traffic
+
+5. Create a EC2 instance in the private subnet.
+- Services -> EC2 -> Launch Instance.
+- Select windows server 2016 base (free tier).
+- Choose an instance type: t2.micro free tier.
+- Configure instance details
+	- Network: your VPC.
+	- Subnet: the private one.
+	- Auto-assign public ip: disable.
+- Add storage: next
+- Add Tags:
+	- key: name
+	- Value: "Private server"
+- Configure Security Group:
+	- Create a new one.
+	- Change the name and description.
+	- Type: All traffic
+
+6. Ping google.com ip from the private subnet.
+- Copy the private ip of the private instance, it looks like "10.0.0.255"
+- Go to instances, select Bastion and connect.
+- It will ask for your .pem key.
+- Now you are inside the bastion host, then you look for remote desktop connection.
+- Paste the ip and it will ask for the key again. You are inside the private server.
+- Open command prompt 
+- Type "ping" and the the ip address for google.com 64.233.191.255
+- Enter
+
