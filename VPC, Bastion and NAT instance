@@ -13,6 +13,7 @@ I propose a step by step method to achieve the objective.
 - Search for Key Pair on resources, and create one.
 - This will be used afterwards.
 
+
 2. Create a VPC with NAT Instance.
 
 - Go to VPC now.
@@ -26,6 +27,7 @@ I propose a step by step method to achieve the objective.
 	- Instance type: t2.micro
 	- Key Pair name: use your Key pair.
 
+
 3. Configuring NAT Instance security group. Door to the internet!
 
 - Go to Instance inside EC2.
@@ -37,7 +39,9 @@ I propose a step by step method to achieve the objective.
 	- For type, search for "all traffic".
 - Click Save
 
+
 4. Create Bastion Host in Public Subnet.
+
 - Services -> EC2 -> Launch Instance.
 - Select windows server 2016 base (free tier).
 - Choose an instance type: t2.micro free tier.
@@ -54,7 +58,9 @@ I propose a step by step method to achieve the objective.
 	- Change the name and description.
 	- Type: All traffic
 
+
 5. Create a EC2 instance in the private subnet.
+
 - Services -> EC2 -> Launch Instance.
 - Select windows server 2016 base (free tier).
 - Choose an instance type: t2.micro free tier.
@@ -71,13 +77,15 @@ I propose a step by step method to achieve the objective.
 	- Change the name and description.
 	- Type: All traffic
 
+
 6. Ping google.com ip from the private subnet.
+
 - Copy the private ip of the private instance, it looks like "10.0.0.255"
 - Go to instances, select Bastion and connect.
 - It will ask for your .pem key.
 - Now you are inside the bastion host, then you look for remote desktop connection.
 - Paste the ip and it will ask for the key again. You are inside the private server.
 - Open command prompt 
-- Type "ping" and the the ip address for google.com 64.233.191.255
-- Enter
+- Type "ping google.com" Enter.
+- YOu will have response from the website.
 
