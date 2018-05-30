@@ -1,9 +1,12 @@
 VPC, Bastion and NAT instance.
 
-The goal is to configure a VPC with one private and one public subnet. 
+The goal is to connect yourself through a Bastion host to a private webserver
+and from there, to ping an internet address.
+
+To do this, I will configure a VPC with one private and one public subnet. 
 In the private subnet we have one EC2 which will be used to ping a website.
-In the public subnet we will have two EC2 instances, one as a NAT instance and
-the other one as a BASTION. All this inside one availability zone
+In the public subnet we will have two EC2 instances, a NAT instance and
+the other one a BASTION. All this inside one availability zone
 I propose a step by step method to achieve the objective.
 
 1. Create one Key Pair.
