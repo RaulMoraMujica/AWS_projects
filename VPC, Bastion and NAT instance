@@ -39,7 +39,7 @@ I propose a step by step method to achieve the objective.
 - Now select it and change the name to "NAT security" and go to inbound tab.
 - Click on "edit".
 - Go to inbound Rules and click edit.
-	- For type, search for "all traffic".
+	- For type, search for "all traffic". WORK IN PROGRESS
 - Click Save
 
 
@@ -59,7 +59,7 @@ I propose a step by step method to achieve the objective.
 - Configure Security Group:
 	- Create a new one.
 	- Change the name and description.
-	- Type: All traffic
+	- Type: All traffic WORK IN PROGRESS
 
 
 5. Create a EC2 instance in the private subnet.
@@ -78,7 +78,7 @@ I propose a step by step method to achieve the objective.
 - Configure Security Group:
 	- Create a new one.
 	- Change the name and description.
-	- Type: All traffic
+	- Type: All traffic WORK IN PROGRESS
 
 
 6. Ping google.com ip from the private subnet.
