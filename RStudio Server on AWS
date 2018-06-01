@@ -1,1 +1,52 @@
+RStudio server on AWS
 
+Based on: https://www.youtube.com/watch?v=zJuFpqB01u4
+
+1. Create VPC with one public subnet:
+	- Go to services, click "VPC".
+	- "Start VPC wizard", select "VPC with a single public subnet".
+	- Leave everything default.
+	- "Create VPC".
+	
+2. Create an EC2 instance:
+	- Go to services, click "EC2".
+	- Click "Launch Instance".
+	- Step 1: Choose the first AMI - Linux AMI (free tier).
+	- Step 2: Just click Next if t2.micro is already selected.
+	- Step 3: Let's configure the instance
+		- Network: The VPC created by you.
+		- Subnet: Public subnet
+		- Auto-assign Public IP: ENABLE.
+		- Advance Details: Paste this script into the
+	
+#!/bin/bash
+# install R
+yum install -y R
+# install RStudio-Server
+wget https://download2.rstudio.org/rstudio-server-rhel-0.99.903-x86_64.rpm
+yum install -y --nogpgcheck rstudio-server-rhel-0.99.903-x86_64.rpm
+yum install -y curl-devel
+# add user
+useradd raulm
+echo raulm:testing | chpasswd
+
+		- Next
+		
+	- Step 4: Default, click "Review and Launch".
+	- Step 7: 
+		- Edit Security Group.
+			Add two rules.
+				- SSH Port 22
+				- Custom TCP Port 8787
+				- Both with Source "Anywhere"
+		- Click Launch
+	Final Step: Create a Key Pair
+		- Download your new key.
+		- Click Launch Instances.
+		
+4. Let us check the server:
+	- Verify the public IP from your instance and copy it.
+	- then paste it on your browser as follows: xxxxxxxx plus ":8787"
+	- User Name: raulm
+	- Password: testing
+	- DONE!.
